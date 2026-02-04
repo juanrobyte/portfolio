@@ -1,0 +1,712 @@
+:root {
+    --bg: #0b0e14;
+    --card: #111827;
+    --muted: #94a3b8;
+    --text: #e5e7eb;
+    --line: rgba(148, 163, 184, .18);
+    --brand: #60a5fa;
+    --brand2: #a78bfa;
+    --ok: #34d399;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    --radius: 18px;
+    --max: 1100px;
+    --pad: 22px;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+}
+
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%
+}
+
+body{
+  margin:0;
+  background: var(--bg);
+  color:var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+}
+
+a {
+    color: inherit;
+    text-decoration: none
+}
+
+a:hover {
+    opacity: .9
+}
+
+.container {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 clamp(16px, 3vw, 28px);
+}
+
+
+.nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+    background: linear-gradient(to bottom, rgba(11, 14, 20, .7), rgba(11, 14, 20, .25));
+    border-bottom: 1px solid var(--line);
+}
+
+.navInner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+}
+
+.brand {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-weight: 800;
+    letter-spacing: .2px;
+}
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--line);
+    background: rgba(17, 24, 39, .55);
+    padding: 8px 12px;
+    border-radius: 999px;
+}
+
+.navLinks {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    background: rgba(17, 24, 39, .6);
+    box-shadow: var(--shadow);
+}
+
+.btnPrimary {
+    background: linear-gradient(135deg, rgba(96, 165, 250, .95), rgba(167, 139, 250, .85));
+    border-color: rgba(96, 165, 250, .35);
+    color: #071018;
+    font-weight: 800;
+}
+
+.hero {
+    padding: 64px 0 26px
+}
+
+.kicker {
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: .2px
+}
+
+.h1 {
+    font-size: clamp(34px, 4vw, 54px);
+    line-height: 1.05;
+    margin: 10px 0 14px;
+    letter-spacing: -.6px;
+}
+
+.sub {
+    color: rgba(229, 231, 235, .85);
+    font-size: 16.5px;
+    line-height: 1.6;
+    max-width: 72ch;
+}
+
+.heroCtas {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 18px
+}
+
+.grid {
+    display: grid;
+    gap: 14px
+}
+
+.grid3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr))
+}
+
+.grid2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+}
+
+@media (max-width: 900px) {
+
+    .grid3,
+    .grid2 {
+        grid-template-columns: 1fr
+    }
+}
+
+.card {
+    border: 1px solid var(--line);
+    background: rgba(17, 24, 39, .55);
+    border-radius: var(--radius);
+    padding: 18px;
+    box-shadow: var(--shadow);
+}
+
+.cardTitle {
+    font-weight: 900;
+    margin: 0 0 6px
+}
+
+.cardDesc {
+    color: rgba(229, 231, 235, .82);
+    line-height: 1.55;
+    margin: 0
+}
+
+.section {
+    padding: 42px 0;
+}
+
+.h2 {
+    font-size: 22px;
+    margin: 0 0 12px;
+    letter-spacing: -.2px
+}
+
+.muted {
+    color: var(--muted)
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px
+}
+
+.tag {
+    font-size: 12.5px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(2, 6, 23, .35);
+    color: rgba(229, 231, 235, .85);
+}
+
+.row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap
+}
+
+.sep {
+    height: 1px;
+    background: var(--line);
+    margin: 18px 0
+}
+
+.footer {
+    padding: 26px 0 40px;
+    color: rgba(148, 163, 184, .9)
+}
+
+.small {
+    font-size: 12.5px
+}
+
+.link {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    border-bottom: 1px dashed rgba(148, 163, 184, .45);
+}
+
+.link:hover {
+    border-bottom-color: rgba(229, 231, 235, .6)
+}
+
+.heroAvatarWrap {
+    width: 170px;
+    height: 170px;
+    border-radius: 999px;
+    padding: 6px;
+    border: 1px solid rgba(148, 163, 184, .25);
+    background: linear-gradient(135deg, rgba(96, 165, 250, .25), rgba(167, 139, 250, .18));
+    box-shadow: var(--shadow);
+}
+
+.heroAvatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 999px;
+    /* FULL redonda */
+    object-fit: cover;
+    /* que no se deforme */
+    display: block;
+    border: 1px solid rgba(148, 163, 184, .2);
+}
+
+@media (max-width: 900px) {
+    .heroAvatarWrap {
+        width: 140px;
+        height: 140px;
+        margin-top: 18px;
+    }
+}
+
+.sectionPanel {
+    border: 1px solid var(--line);
+    background: rgba(17, 24, 39, .78);
+    /* SUBE OPACIDAD */
+    border-radius: var(--radius);
+    padding: 18px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    /* evita bordes raros con blur */
+}
+
+
+.sectionHead {
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(148, 163, 184, .14);
+    margin-bottom: 14px;
+}
+
+.sectionBody {
+    /* evita que el contenido “parezca otro bloque” */
+}
+
+.heroAvatarWrap {
+    position: relative;
+}
+
+.heroAvatarWrap::after {
+    content: "";
+    position: absolute;
+    inset: -14px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(96, 165, 250, .18), transparent 60%);
+    filter: blur(10px);
+    z-index: -1;
+}
+
+.brandBadge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px;
+    border-radius: 999px;
+    font-weight: 900;
+    letter-spacing: .2px;
+    border: 1px solid rgba(148, 163, 184, .22);
+    background: rgba(17, 24, 39, .55);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .25);
+}
+
+.btnIcon {
+    gap: 10px;
+    padding: 10px 14px;
+}
+
+.iconWrap {
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contactItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    color: rgba(229, 231, 235, .9);
+}
+
+.contactIcon {
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(148, 163, 184, .18);
+    background: rgba(2, 6, 23, .30);
+}
+
+.floatingWA {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(52, 211, 153, .25);
+    background: rgba(17, 24, 39, .72);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, .45);
+    z-index: 999;
+    font-size: 22px;
+}
+
+.floatingWA:hover {
+    transform: translateY(-2px);
+}
+
+.centerBadge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 22px;
+    padding-bottom: 22px;
+}
+
+.section {
+    position: relative;
+}
+
+.section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(900px 500px at 30% 40%, rgba(96, 165, 250, .10), transparent 60%),
+        radial-gradient(900px 500px at 80% 60%, rgba(167, 139, 250, .08), transparent 62%);
+    opacity: .6;
+}
+
+.section .container {
+    position: relative;
+    /* para que el panel quede encima del ::before */
+    z-index: 1;
+}
+
+/* --- Formación: listas y stack --- */
+.list {
+  margin: 12px 0 0;
+  padding-left: 18px;
+  color: rgba(229, 231, 235, 0.86);
+  line-height: 1.55;
+}
+
+.listItem {
+  margin: 10px 0;
+}
+
+.listMain {
+  font-weight: 800;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stackRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* --- Credly badges: look & feel consistente --- */
+.badgeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .badgeGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid1 {
+  grid-template-columns: 1fr;
+}
+
+/* Badges como enlaces (no iframe) */
+.badgeLink {
+  border: 1px solid var(--line);
+  background: rgba(2, 6, 23, 0.35);
+  border-radius: 16px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: var(--shadow);
+  transition: transform 0.12s ease, border-color 0.12s ease;
+}
+
+.badgeLink:hover {
+  transform: translateY(-2px);
+  border-color: rgba(96, 165, 250, 0.35);
+}
+
+.badgeLinkTitle {
+  font-weight: 900;
+}
+
+.badgeLinkMeta {
+  color: rgba(229, 231, 235, 0.76);
+  font-size: 13px;
+}
+
+/* Layout especial para Habilidades */
+.skillsGrid {
+  align-items: stretch;
+}
+
+/* Poner Ciberseguridad arriba en el lugar de Infra/Redes (columna 2) */
+.skill-ciberseguridad {
+  grid-column: 2 / 3;
+  grid-row: 1;
+}
+
+/* Mandar Infraestructura / Redes abajo ocupando TODO el ancho */
+.skill-infraestructura---redes {
+  grid-column: 1 / -1; /* ocupa todas las columnas */
+  grid-row: 2;         /* segunda fila */
+}
+
+/* Para evitar que el orden natural rompa el layout en algunos navegadores */
+.skill-programacion-web {
+  grid-column: 1 / 2;
+  grid-row: 1;
+}
+.skill-soporte-tecnico {
+  grid-column: 3 / 4;
+  grid-row: 1;
+}
+
+/* Responsive: en móvil todo vuelve a una columna (sin posiciones raras) */
+@media (max-width: 900px) {
+  .skill-ciberseguridad,
+  .skill-infraestructura---redes,
+  .skill-programacion-web,
+  .skill-soporte-tecnico {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+}
+
+/* Experiencia: Quantico full width + Ferre full width debajo */
+.expGrid {
+  align-items: stretch;
+}
+
+/* Quantico: ocupa todo el ancho (fila 1) */
+.exp-quantico-servicios-de-asistencia-sa {
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+
+/* Ferre Construye: ocupa todo el ancho (fila 2) */
+.exp-distribuidora-fc-ferre-construye-2035-ca {
+  grid-column: 1 / -1;
+  grid-row: 2;
+}
+
+/* Responsive: en móvil vuelve todo normal */
+@media (max-width: 900px) {
+  .exp-quantico-servicios-de-asistencia-sa,
+  .exp-distribuidora-fc-ferre-construye-2035-ca {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+}
+
+.grid1 {
+  grid-template-columns: 1fr;
+}
+
+/* ===== FIX DEFINITIVO: HABILIDADES 1 COLUMNA SIN HUECOS ===== */
+
+/* Fuerza 1 columna sí o sí */
+.skillsGrid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  grid-auto-flow: row !important;    /* evita flow por columnas */
+  grid-auto-columns: unset !important;
+  width: 100%;
+}
+
+/* Anula cualquier grid-column/grid-row que se haya puesto antes */
+.skillsGrid > .skillCard,
+.skillsGrid > [class*="skill-"] {
+  grid-column: auto !important;
+  grid-row: auto !important;
+  justify-self: stretch;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Por si algún card tiene display raro */
+.skillCard {
+  width: 100%;
+}
+
+/* ===== 1 COLUMNA SIN HUECOS (Experiencia / Habilidades / Formación) ===== */
+
+/* Fuerza a que estas grillas sean 1 columna sí o sí */
+.grid1,
+.skillsGrid,
+.expGrid,
+.badgeGrid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  grid-auto-flow: row !important;
+  gap: 12px;
+}
+
+/* Badges/cursos como cards (sirve para cursos y para insignias) */
+.badgeLink {
+  border: 1px solid var(--line);
+  background: rgba(2, 6, 23, 0.35);
+  border-radius: 16px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: var(--shadow);
+  transition: transform 0.12s ease, border-color 0.12s ease;
+  text-decoration: none;
+}
+
+.badgeLink:hover {
+  transform: translateY(-2px);
+  border-color: rgba(96, 165, 250, 0.35);
+}
+
+.badgeLinkTitle {
+  font-weight: 900;
+  color: rgba(229, 231, 235, 0.92);
+}
+
+.badgeLinkMeta {
+  color: rgba(229, 231, 235, 0.76);
+  font-size: 13px;
+}
+
+/* Por si antes tenías reglas especiales que movían cards por grid-column/grid-row */
+.skillsGrid > .skillCard,
+.skillsGrid > [class*="skill-"],
+.expGrid > .expCard,
+.expGrid > [class*="exp-"] {
+  grid-column: auto !important;
+  grid-row: auto !important;
+  width: 100%;
+  min-width: 0;
+}
+
+.cv-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+}
+
+.cv-modal {
+  width: min(980px, 100%);
+  height: min(85vh, 900px);
+  background: rgba(10, 10, 10, .96);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 80px rgba(0,0,0,.55);
+  display: flex;
+  flex-direction: column;
+}
+
+.cv-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+  color: #fff;
+  font-weight: 700;
+}
+
+.cv-close {
+  background: transparent;
+  border: 0;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: .85;
+}
+.cv-close:hover { opacity: 1; }
+
+.cv-iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #111;
+}
+
+/* Hamburger (se activa en mobile con media query) */
+.navToggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(17, 24, 39, .6);
+  box-shadow: var(--shadow);
+  color: rgba(229, 231, 235, .95);
+  cursor: pointer;
+}
+
+.mobileMenu {
+  position: fixed;
+  inset: 0;
+  /* background: rgba(0, 0, 0, .55); */
+  /* backdrop-filter: blur(10px); */
+  z-index: 999;
+  display: none;
+}
+
+.mobileMenuPanel {
+  width: min(520px, calc(100% - 24px));
+  margin: 76px auto 0;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(11, 14, 20, .85);
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 10px;
+}
+
+@media (max-width: 780px) {
+  .navLinks { display: none; }
+  .navToggle { display: inline-flex; }
+  .navInner { padding: 14px 0; }
+  .mobileMenu { display: block; }
+}
