@@ -487,7 +487,7 @@ export default function App() {
         <footer className="footer">
           <div className="container">
             <div className="small">
-              © {new Date().getFullYear()} {profile.name}.
+              ©{new Date().getFullYear()} {profile.name}. Todos los derechos reservados.
             </div>
           </div>
         </footer>
