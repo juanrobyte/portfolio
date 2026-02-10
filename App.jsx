@@ -487,8 +487,7 @@ export default function App() {
         <footer className="footer">
           <div className="container">
             <div className="small">
-              © {new Date().getFullYear()} {profile.name}. Hecho con Vite +
-              React.
+              © {new Date().getFullYear()} {profile.name}.
             </div>
           </div>
         </footer>
