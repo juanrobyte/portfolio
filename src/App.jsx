@@ -1,26 +1,10 @@
 import "./styles.css";
-import { useState } from "react";
-import {
-  profile,
-  highlights,
-  experience,
-  projects,
-  skillGroups,
-  education,
-  courses,
-  pdfCertificates,
-  badges,
-} from "./data/profile";
+import { useEffect, useMemo, useState } from "react";
+import { CONTENT } from "./i18n/content";
+import { useLang } from "./i18n/i18n.jsx";
 import { Section } from "./components/Section";
 import yoImg from "./assets/Yo.jpg";
-import {
-  FiMail,
-  FiPhone,
-  FiGithub,
-  FiLinkedin,
-  FiMenu,
-  FiX,
-} from "react-icons/fi";
+import { FiMail, FiPhone, FiGithub, FiLinkedin, FiMenu, FiX } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import CVModal from "./components/CVModal";
 
@@ -43,10 +27,38 @@ function IconButton({ href, icon, children, variant = "default" }) {
 }
 
 export default function App() {
+  const { lang, setLang } = useLang();
+  const t = useMemo(() => CONTENT[lang] || CONTENT.es, [lang]);
+
+  const profile = t.profile;
+  const highlights = t.highlights;
+  const experience = t.experience;
+  const projects = t.projects;
+  const skillGroups = t.skillGroups;
+  const education = t.education;
+  const courses = t.courses;
+  const pdfCertificates = t.pdfCertificates;
+  const badges = t.badges;
+
   const [cvOpen, setCvOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // SEO title
+  useEffect(() => {
+    document.title = t.seo?.title || "Portfolio";
+  }, [t.seo?.title]);
+
+  // Close mobile menu when resizing to desktop (>1024)
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth > 1024) setMenuOpen(false);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
   const closeMenu = () => setMenuOpen(false);
+
   const openCV = (e) => {
     if (e) e.preventDefault();
     closeMenu();
@@ -55,9 +67,11 @@ export default function App() {
 
   return (
     <>
+      {/* Navbar */}
       <header className="nav">
         <div className="container">
           <div className="navInner">
+            {/* Mobile menu overlay (shows when menuOpen=true) */}
             {menuOpen ? (
               <div className="mobileMenu" onClick={closeMenu}>
                 <div
@@ -65,35 +79,102 @@ export default function App() {
                   onClick={(e) => e.stopPropagation()}
                 >
                   <a className="btn" href="#experiencia" onClick={closeMenu}>
-                    Experiencia
+                    {t.ui.nav.experience}
                   </a>
                   <a className="btn" href="#proyectos" onClick={closeMenu}>
-                    Proyectos
+                    {t.ui.nav.projects}
                   </a>
                   <a className="btn" href="#habilidades" onClick={closeMenu}>
-                    Habilidades
+                    {t.ui.nav.skills}
                   </a>
                   <a className="btn" href="#formacion" onClick={closeMenu}>
-                    Formación
+                    {t.ui.nav.education}
                   </a>
                   <a className="btn" href="#contacto" onClick={closeMenu}>
-                    Contacto
+                    {t.ui.nav.contact}
                   </a>
+
+                  <div className="langPill" aria-label="Language">
+                    <button
+                      type="button"
+                      className={`langBtn ${lang === "es" ? "active" : ""}`}
+                      onClick={() => setLang("es")}
+                    >
+                      {t.ui.langToggle.es}
+                    </button>
+                    <button
+                      type="button"
+                      className={`langBtn ${lang === "en" ? "active" : ""}`}
+                      onClick={() => setLang("en")}
+                    >
+                      {t.ui.langToggle.en}
+                    </button>
+                  </div>
+
                   <a
                     className="btn btnPrimary"
                     href={profile.cta.cv.href}
                     onClick={openCV}
                   >
-                    CV
+                    {t.ui.nav.resume}
                   </a>
                 </div>
               </div>
             ) : null}
 
+            {/* Brand */}
             <div className="brand">
               <span className="brandBadge">Juanrobyte</span>
             </div>
 
+            {/* Desktop nav (visible only >1024 by CSS) */}
+            <nav className="navLinks">
+              <a className="btn" href="#experiencia">
+                {t.ui.nav.experience}
+              </a>
+              <a className="btn" href="#proyectos">
+                {t.ui.nav.projects}
+              </a>
+              <a className="btn" href="#habilidades">
+                {t.ui.nav.skills}
+              </a>
+              <a className="btn" href="#formacion">
+                {t.ui.nav.education}
+              </a>
+              <a className="btn" href="#contacto">
+                {t.ui.nav.contact}
+              </a>
+
+              <div className="langPill" aria-label="Language">
+                <button
+                  type="button"
+                  className={`langBtn ${lang === "es" ? "active" : ""}`}
+                  onClick={() => setLang("es")}
+                >
+                  {t.ui.langToggle.es}
+                </button>
+                <button
+                  type="button"
+                  className={`langBtn ${lang === "en" ? "active" : ""}`}
+                  onClick={() => setLang("en")}
+                >
+                  {t.ui.langToggle.en}
+                </button>
+              </div>
+
+              <a
+                className="btn btnPrimary"
+                href={profile.cta.cv.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setCvOpen(true);
+                }}
+              >
+                {t.ui.nav.resume}
+              </a>
+            </nav>
+
+            {/* Hamburger (visible only <=1024 by CSS) */}
             <button
               className="navToggle"
               type="button"
@@ -103,34 +184,6 @@ export default function App() {
             >
               {menuOpen ? <FiX size={20} /> : <FiMenu size={20} />}
             </button>
-
-            <nav className="navLinks">
-              <a className="btn" href="#experiencia">
-                Experiencia
-              </a>
-              <a className="btn" href="#proyectos">
-                Proyectos
-              </a>
-              <a className="btn" href="#habilidades">
-                Habilidades
-              </a>
-              <a className="btn" href="#formacion">
-                Formación
-              </a>
-              <a className="btn" href="#contacto">
-                Contacto
-              </a>
-              <a
-                className="btn btnPrimary"
-                href={profile.cta.cv.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setCvOpen(true);
-                }}
-              >
-                Curriculum
-              </a>
-            </nav>
           </div>
         </div>
       </header>
@@ -146,31 +199,12 @@ export default function App() {
                 <div className="kicker">{profile.location}</div>
                 <h1 className="h1">{profile.headline}</h1>
                 <p className="sub">{profile.summary}</p>
-
-                {/* <div className="heroCtas">
-                  <a className="btn btnPrimary" href={profile.cta.primary.href}>
-                    {profile.cta.primary.label}
-                  </a>
-                  <a className="btn" href={profile.cta.secondary.href}>
-                    {profile.cta.secondary.label}
-                  </a>
-                  <a
-                    className="btn"
-                    href={profile.cta.cv.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setCvOpen(true);
-                    }}
-                  >
-                    {profile.cta.cv.label}
-                  </a>
-                </div> */}
               </div>
 
               <div className="heroAvatarWrap">
                 <img
                   src={yoImg}
-                  alt="Foto de Juan Diego"
+                  alt={lang === "es" ? "Foto de Juan Diego" : "Juan Diego photo"}
                   className="heroAvatar"
                   loading="eager"
                 />
@@ -192,12 +226,11 @@ export default function App() {
 
         <Section
           id="experiencia"
-          title="Experiencia"
-          subtitle="Roles y aportes más relevantes"
+          title={t.ui.sections.experience.title}
+          subtitle={t.ui.sections.experience.subtitle}
         >
           <div className="grid grid1 expGrid">
             {experience.map((job) => {
-              // Creamos un "slug" para asignar clase y poder posicionar por CSS
               const slug = (job.company || "")
                 .toLowerCase()
                 .replace(/\s+/g, "-")
@@ -255,29 +288,27 @@ export default function App() {
 
         <Section
           id="proyectos"
-          title="Proyectos destacados"
-          subtitle="Producto real + dashboards + contribuciones freelance"
+          title={t.ui.sections.projects.title}
+          subtitle={t.ui.sections.projects.subtitle}
         >
           <div className="grid grid3">
             {projects.map((p) => (
               <div className="card" key={p.title}>
-                <div
-                  className="row"
-                  style={{ justifyContent: "space-between" }}
-                >
+                <div className="row" style={{ justifyContent: "space-between" }}>
                   <h3 className="cardTitle" style={{ margin: 0 }}>
                     {p.title}
                   </h3>
                   <span className="tag">{p.tag}</span>
                 </div>
+
                 <p className="cardDesc" style={{ marginTop: 10 }}>
                   {p.desc}
                 </p>
 
                 <div className="tags">
-                  {p.tech.map((t) => (
-                    <span className="tag" key={t}>
-                      {t}
+                  {p.tech.map((tt) => (
+                    <span className="tag" key={tt}>
+                      {tt}
                     </span>
                   ))}
                 </div>
@@ -292,7 +323,7 @@ export default function App() {
                   </div>
                 ) : (
                   <div style={{ marginTop: 12 }} className="muted small">
-                    (Proyecto interno / sin enlace público)
+                    {t.ui.sections.projects.internal}
                   </div>
                 )}
               </div>
@@ -302,8 +333,8 @@ export default function App() {
 
         <Section
           id="habilidades"
-          title="Habilidades"
-          subtitle="Separadas por área (programación, infra y soporte)"
+          title={t.ui.sections.skills.title}
+          subtitle={t.ui.sections.skills.subtitle}
         >
           <div className="grid grid1 skillsGrid">
             {skillGroups.map((g) => {
@@ -333,12 +364,12 @@ export default function App() {
 
         <Section
           id="formacion"
-          title="Formación"
-          subtitle="Estudios, cursos y aprendizaje continuo"
+          title={t.ui.sections.education.title}
+          subtitle={t.ui.sections.education.subtitle}
         >
           <div className="grid grid1">
             <div className="card">
-              <h3 className="cardTitle">Estudios y plataformas</h3>
+              <h3 className="cardTitle">{t.ui.sections.education.studiesTitle}</h3>
               <ul className="list">
                 {education.map((e) => (
                   <li key={e.title} className="listItem">
@@ -352,84 +383,87 @@ export default function App() {
               </ul>
             </div>
 
-            <div className="card">
-              <h3 className="cardTitle">Cursos y certificados</h3>
-              <p className="cardDesc">
-                Compilación de cursos (Platzi y afines) + certificados.
-              </p>
+            {courses?.length ? (
+              <div className="card">
+                <h3 className="cardTitle">{t.ui.sections.education.coursesTitle}</h3>
+                <p className="cardDesc">{t.ui.sections.education.coursesDesc}</p>
 
-              <div className="badgeGrid" style={{ marginTop: 12 }}>
-                {courses.map((c, idx) => (
-                  <a
-                    key={c.href + idx}
-                    className="badgeLink"
-                    href={c.href}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <div className="badgeLinkTitle">{c.label}</div>
-                    <div className="badgeLinkMeta">
-                      {c.provider} · Ver diploma{" "}
-                      <span className="muted">↗</span>
-                    </div>
-                  </a>
-                ))}
-              </div>
-
-              {pdfCertificates?.length ? (
-                <>
-                  <div className="muted" style={{ fontWeight: 800 }}>
-                    PDFs
-                  </div>
-                  <div className="stack" style={{ marginTop: 10 }}>
-                    {pdfCertificates.map((p) => (
-                      <div className="stackRow" key={p.href}>
-                        <span className="tag">PDF</span>
-                        <ExternalLink href={p.href}>{p.label}</ExternalLink>
+                <div className="badgeGrid" style={{ marginTop: 12 }}>
+                  {courses.map((c, idx) => (
+                    <a
+                      key={c.href + idx}
+                      className="badgeLink"
+                      href={c.href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <div className="badgeLinkTitle">{c.label}</div>
+                      <div className="badgeLinkMeta">
+                        {c.provider} · {t.ui.sections.education.viewDiploma}{" "}
+                        <span className="muted">↗</span>
                       </div>
-                    ))}
-                  </div>
-                </>
-              ) : null}
-            </div>
+                    </a>
+                  ))}
+                </div>
 
-            <div className="card">
-              <h3 className="cardTitle">Insignias</h3>
-              <div className="badgeGrid">
-                {badges.map((b) => (
-                  <a
-                    key={b.href}
-                    className="badgeLink"
-                    href={b.href}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <div className="badgeLinkTitle">{b.title}</div>
-                    <div className="badgeLinkMeta">
-                      Ver en Credly <span className="muted">↗</span>
+                {pdfCertificates?.length ? (
+                  <>
+                    <div className="muted" style={{ fontWeight: 800 }}>
+                      {t.ui.sections.education.pdfs}
                     </div>
-                  </a>
-                ))}
+                    <div className="stack" style={{ marginTop: 10 }}>
+                      {pdfCertificates.map((p) => (
+                        <div className="stackRow" key={p.href}>
+                          <span className="tag">PDF</span>
+                          <ExternalLink href={p.href}>{p.label}</ExternalLink>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ) : null}
               </div>
-            </div>
+            ) : null}
+
+            {badges?.length ? (
+              <div className="card">
+                <h3 className="cardTitle">{t.ui.sections.education.badgesTitle}</h3>
+                <div className="badgeGrid">
+                  {badges.map((b) => (
+                    <a
+                      key={b.href}
+                      className="badgeLink"
+                      href={b.href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <div className="badgeLinkTitle">{b.title}</div>
+                      <div className="badgeLinkMeta">
+                        {t.ui.sections.education.viewCredly}{" "}
+                        <span className="muted">↗</span>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </div>
         </Section>
 
-        <Section id="contacto" title="Contacto" subtitle="¿Hablamos?">
+        <Section
+          id="contacto"
+          title={t.ui.sections.contact.title}
+          subtitle={t.ui.sections.contact.subtitle}
+        >
           <div className="grid grid1">
             <div className="card">
-              <h3 className="cardTitle">Directo</h3>
+              <h3 className="cardTitle">{t.ui.sections.contact.direct}</h3>
 
               <div className="contactItem">
                 <span className="contactIcon">
                   <FiMail />
                 </span>
-                <a
-                  className="link"
-                  href={`mailto:${profile.contact.emailPrimary}`}
-                >
-                  {profile.contact.emailPrimary}{" "}
-                  <span className="muted">↗</span>
+                <a className="link" href={`mailto:${profile.contact.emailPrimary}`}>
+                  {profile.contact.emailPrimary} <span className="muted">↗</span>
                 </a>
               </div>
 
@@ -437,12 +471,8 @@ export default function App() {
                 <span className="contactIcon">
                   <FiMail />
                 </span>
-                <a
-                  className="link"
-                  href={`mailto:${profile.contact.emailSecondary}`}
-                >
-                  {profile.contact.emailSecondary}{" "}
-                  <span className="muted">↗</span>
+                <a className="link" href={`mailto:${profile.contact.emailSecondary}`}>
+                  {profile.contact.emailSecondary} <span className="muted">↗</span>
                 </a>
               </div>
 
@@ -462,22 +492,19 @@ export default function App() {
                 <IconButton
                   variant="primary"
                   href={`https://wa.me/${profile.contact.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(
-                    "Hola Juan, vi tu portafolio y quiero hablar contigo.",
+                    t.ui.whatsappMsg,
                   )}`}
                   icon={<FaWhatsapp />}
                 >
-                  WhatsApp
+                  {t.ui.sections.contact.whatsapp}
                 </IconButton>
 
                 <IconButton href={profile.contact.github} icon={<FiGithub />}>
-                  GitHub
+                  {t.ui.sections.contact.github}
                 </IconButton>
 
-                <IconButton
-                  href={profile.contact.linkedin}
-                  icon={<FiLinkedin />}
-                >
-                  LinkedIn
+                <IconButton href={profile.contact.linkedin} icon={<FiLinkedin />}>
+                  {t.ui.sections.contact.linkedin}
                 </IconButton>
               </div>
             </div>
@@ -487,7 +514,7 @@ export default function App() {
         <footer className="footer">
           <div className="container">
             <div className="small">
-              © {new Date().getFullYear()} {profile.name}. Todos los derechos reservados.
+              © {new Date().getFullYear()} {profile.name}. {t.ui.footer}
             </div>
           </div>
         </footer>
@@ -499,15 +526,17 @@ export default function App() {
           )}`}
           target="_blank"
           rel="noreferrer"
-          aria-label="Escríbeme por WhatsApp"
+          aria-label={t.ui.sections.contact.waAria}
         >
           <FaWhatsapp />
         </a>
       </main>
+
       <CVModal
         open={cvOpen}
         onClose={() => setCvOpen(false)}
         pdfUrl={profile.cta.cv.href}
+        title={t.ui.cvModalTitle}
       />
     </>
   );
