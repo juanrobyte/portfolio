@@ -170,6 +170,7 @@ export const CONTENT = {
           "DB",
           "VPS",
           "Python",
+          "Selenium",
           "Figma",
           "CRO",
           "Marketing",
